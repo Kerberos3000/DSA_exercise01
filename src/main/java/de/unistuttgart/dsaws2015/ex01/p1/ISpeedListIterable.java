@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public interface ISpeedListIterable<T> {
 	
-	/*
+	/**
 	* Returns an iterator that enumerates every
 	* element in the collection, starting with the
 	* first element.
@@ -13,7 +13,7 @@ public interface ISpeedListIterable<T> {
 	*/
 	public Iterator<T> iterator();
 	
-	/*
+	/**
 	* Returns an iterator that enumerates every nth
 	* element in the collection, starting with the
 	* first element .
@@ -22,5 +22,7 @@ public interface ISpeedListIterable<T> {
 	* @return The iterator.
 	* @throws IllegalArgumentException if n is less than 1.
 	*/
-	public Iterator<T> skippingIterator(int n);
+	
+	
+	//public Iterator<T> skippingIterator(int n);
 }
