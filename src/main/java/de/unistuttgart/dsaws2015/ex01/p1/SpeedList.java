@@ -91,6 +91,11 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		//QUOTE Mark: yeah i think you are right. The head can be null,
 		//therefore the list can be empty (0 elements) even if the head is
 		//initialized.
+		
+		//TODO: I dont know how the size thing is done at list... but maybe we
+		// should consider saving the size as private variable and then we 
+		// just raise or lower the size if a elemt gets added or deleted. 
+		// the size() method would then be as simple as : "return size;"
 		Node l = this.head;
 		
 		//TODO: This could be optimized using the next8th element.
@@ -129,9 +134,18 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		
 		//TODO: this has to be expanded as well
 		//I think the whole point of the next8th list is to 
-		//speed up the traversing....
+		//speed up the traversing.... Okay i already did it, please
+		// check if it makes sense. The TestCases still work.
+		
 		Node l = this.head;
-		for(int i=0; i<pos; i++)
+		int i = 0;
+		while(l.getNext8th() != null && i<pos) //TODO: second check may be unnecessary ?
+		{
+			l = l.getNext8th();
+			i += 8;
+		}
+		
+		for(i=0; i<pos; i++)
 		{
 			if (l.getNext() == null)
 			{
