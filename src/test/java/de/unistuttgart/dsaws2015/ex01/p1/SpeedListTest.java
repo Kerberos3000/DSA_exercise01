@@ -41,7 +41,7 @@ public class SpeedListTest {
 		assertEquals("car",list.getElementAt(7));
 		assertEquals("hello",list.getElementAt(size));//TODO: discuss with team about the index
 		assertEquals("hello",list.getElementAt(18));
-		assertEquals("hello",list.getElementAt(17)); //check if optimized getElementAt is working as expected
+		assertEquals("hi",list.getElementAt(17)); //check if optimized getElementAt is working as expected
 		assertEquals("bike",list.getElementAt(1));
 
 			
