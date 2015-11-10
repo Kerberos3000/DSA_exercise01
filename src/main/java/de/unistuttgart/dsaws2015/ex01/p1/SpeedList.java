@@ -156,15 +156,12 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		}
 	
 		//check if fast iterating possible
-		while(l.getNext8th() != null && (i+8)<pos) //TODO: second check may be unnecessary ?
-												// Daniel: I think it is necessary, but with i+8 (testcase will fail without it)
+		while(l.getNext8th() != null && (i+8)<pos) 
 		{
 			l = l.getNext8th();
 			i += 8;
 		}
 		
-		//FIXME check why i=0? testcase?
-		//try with j=i
 		for(int j=i; j<pos; j++)
 		{
 			if (l.getNext() == null)
@@ -181,20 +178,33 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		//first, find element at position: pos
 		Node l = this.head;
 		int i = 0;
-		while(l.getNext8th() != null && i<pos) //TODO: second check may be unnecessary ?
+
+		// preparation for fast iterating (head does not have a next8th pointer)
+		if (pos >= 1 && l.getNext() != null){
+			l = l.getNext();
+			i++;
+		}
+		else{
+			// list is empty or requested position is <1
+			throw new IndexOutOfBoundsException("position pos is out of bounds or your list is empty");
+		}
+
+		//Remark Daniel: Same here: this loop will be never iteraed (head.getnext8th always null
+		while(l.getNext8th() != null && (i+8)<pos) 
 		{
 			l = l.getNext8th();
 			i += 8;
 		}
 		
-		for(i=0; i<pos; i++)
+		for(int j=i; j<pos; j++)
 		{
 			if (l.getNext() == null) {
 				throw new IndexOutOfBoundsException("position pos is out of bounds");
 			}
 			l = l.getNext();
 		}
-		
+	
+		//l is now the element at position pos
 		if (l.next8th != null) {
 			return l.getNext8th().getObj();
 		}

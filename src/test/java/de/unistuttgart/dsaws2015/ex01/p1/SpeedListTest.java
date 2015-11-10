@@ -45,10 +45,11 @@ public class SpeedListTest {
 		assertEquals("bike",list.getElementAt(1));
 
 			
+		assertEquals("hugo",list.getNext8thElementOf(1));
 		assertEquals("hi",list.getNext8thElementOf(9)); //should be hi
-		//assertEquals("hi",list.getNext8thElementOf(19)); //should be an exception
+//		assertEquals("hi",list.getNext8thElementOf(19)); //should be an exception
 		assertEquals("hello",list.getNext8thElementOf(10)); //should be hello
-		//assertEquals("hello",list.getNext8thElementOf(11)); //should be an exception
+//		assertEquals("hello",list.getNext8thElementOf(11)); //should be an exception
 
 
 
