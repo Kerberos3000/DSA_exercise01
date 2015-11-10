@@ -1,10 +1,9 @@
 package de.unistuttgart.dsaws2015.ex01.p1;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-//import java.util.Iterator;
 
-//public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 
 
@@ -225,24 +224,87 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 	 * This is useful for debugging purpose during implementation.
 	 */
 	public void printList(){
-		Node l = this.head;
-		int counter = 0; //0 = head
-		while(l.getNext()!=null)
+		// use print function to validate new iterator:
+		
+		SpeedListIterator iter = new SpeedListIterator();
+		int counter = 1; //0 = head	
+		while (iter.hasNext())
 		{
-			System.out.println(counter + ": " + (String) l.getObj());	
-			l = l.getNext();
+			System.out.println(counter + ": " + (String)iter.next()); 
 			counter++;
 		}
-		// print last element
-		System.out.println(counter + ": " + (String) l.getObj());	
+}
+
+	private class SpeedListIterator implements Iterator<T> {
+
+		private Node node = null;
+
+		//constructor for iterator
+		public SpeedListIterator()
+		{
+			node = head.getNext();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return node != null; //remark: node always points to next (not current) element
+		}
+
+		@Override
+		public T next() {
+
+			if (!this.hasNext()) {
+				throw new NoSuchElementException();
+			}
+			
+			T object = node.getObj();
+			node = node.getNext();
+			
+			return object;
+		}
+
+		@Override
+		/**
+		 * This method is not supported
+		 * 
+		 * @throws UnsupportedOperationException
+		 */
+		public void remove() {
+			throw new UnsupportedOperationException("The method SpeedListIterator.remove() is not supported");
+		}
 		
 	}
+	
+	private class SpeedListSkippingIterator implements Iterator<T> {
 
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
 
+		@Override
+		public T next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		/**
+		 * This method is not supported
+		 * 
+		 * @throws UnsupportedOperationException
+		 */
+		public void remove() {
+			throw new UnsupportedOperationException("The method SpeedListSkippingIterator.remove() is not supported");
+			
+		}
+		
+	}
+	
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SpeedListIterator();
 	}
 
 	@Override

@@ -52,6 +52,11 @@ public class SpeedListTest {
 //		assertEquals("hello",list.getNext8thElementOf(11)); //should be an exception
 		assertEquals("hello",list.getNext8thElementOf(size-8));
 
+		
+		//TestProb1b:
+		// iterator is tested in print function
+		// TODO: check exception in remove
+		
 
 		assertTrue(true);
 	}
