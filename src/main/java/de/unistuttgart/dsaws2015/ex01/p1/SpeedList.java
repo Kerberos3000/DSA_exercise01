@@ -160,7 +160,14 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 	public T getNext8thElementOf(int pos) {
 		//first, find element at position: pos
 		Node l = this.head;
-		for(int i=0; i<pos; i++)
+		int i = 0;
+		while(l.getNext8th() != null && i<pos) //TODO: second check may be unnecessary ?
+		{
+			l = l.getNext8th();
+			i += 8;
+		}
+		
+		for(i=0; i<pos; i++)
 		{
 			if (l.getNext() == null) {
 				throw new IndexOutOfBoundsException("position pos is out of bounds");
