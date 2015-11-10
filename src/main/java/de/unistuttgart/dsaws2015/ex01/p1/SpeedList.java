@@ -9,7 +9,6 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 
 	private class Node {
 
-
 		//attributes
 		private T obj;
 		private Node next;
@@ -41,6 +40,7 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		/**
 		 * @param obj the obj to set
 		 */
+		@SuppressWarnings("unused")
 		public void setObj(T obj) {
 			this.obj = obj;
 		}
@@ -87,24 +87,6 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 
 	@Override
 	public int size() {
-		// remark: the head will not be considered as part of the list
-
-
-		//TODO: discuss this with team.
-		//QUOTE Mark: yeah i think you are right. The head can be null,
-		//therefore the list can be empty (0 elements) even if the head is
-		//initialized.
-		
-		//TODO: I dont know how the size thing is done at list... but maybe we
-		// should consider saving the size as private variable and then we 
-		// just raise or lower the size if a elemt gets added or deleted. 
-		// the size() method would then be as simple as : "return size;"
-		
-		// Remark Daniel: very good point.
-		// I implemented it accordingly. 
-		// Delete all the comments if so ok.
-
-		//TODO: This could be optimized using the next8th element.
 		return this.size;
 	}
 
@@ -130,30 +112,16 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		}
 		
 	}
-
-	@Override
-	public T getElementAt(int pos) {
-		
-		//TODO: this has to be expanded as well
-		//I think the whole point of the next8th list is to 
-		//speed up the traversing.... Okay i already did it, please
-		// check if it makes sense. The TestCases still work.
-		//
-		//Daniel: Very good point!
-		//FIXME: head does not have a next8th pointer.
-		//This means your loop is never iterated.
-		//Solution a) we add a next8th pointer to the head, too. Not that trivial
-		//Solution b) we optimize from the first element. (and not from head)
-
+	
+	private Node getNodeAt(int pos)
+	{
 		Node l = this.head;
 		int i = 0;
 
 		if (pos >= 0 && l.getNext() != null){
 			l = l.getNext();
-			// i++; TODO verify this change
 		}
 		else{
-			// list is empty or requested position is <0
 			throw new IndexOutOfBoundsException("position pos is out of bounds or your list is empty");
 		}
 	
@@ -171,41 +139,18 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 				throw new IndexOutOfBoundsException("position pos is out of bounds");
 			}
 			l = l.getNext();
-		}
-		return l.getObj();
+		}	
+		return l;
+	}
+
+	@Override
+	public T getElementAt(int pos) {
+		return getNodeAt(pos).getObj();
 	}
 
 	@Override
 	public T getNext8thElementOf(int pos) {
-		//first, find element at position: pos
-		Node l = this.head;
-		int i = 0;
-
-		// preparation for fast iterating (head does not have a next8th pointer)
-		if (pos >= 0 && l.getNext() != null){
-			l = l.getNext();
-		}
-		else{
-			// list is empty or requested position is <1
-			throw new IndexOutOfBoundsException("position pos is out of bounds or your list is empty");
-		}
-
-		//Remark Daniel: Same here: this loop will be never iteraed (head.getnext8th always null
-		while(l.getNext8th() != null && (i+8)<pos) 
-		{
-			l = l.getNext8th();
-			i += 8;
-		}
-		
-		for(int j=i; j<pos; j++)
-		{
-			if (l.getNext() == null) {
-				throw new IndexOutOfBoundsException("position pos is out of bounds");
-			}
-			l = l.getNext();
-		}
-	
-		//l is now the element at position pos
+		Node l = getNodeAt(pos);
 		if (l.next8th != null) {
 			return l.getNext8th().getObj();
 		}

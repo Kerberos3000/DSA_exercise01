@@ -71,7 +71,7 @@ public class SpeedListTest {
 		// iterator is tested in print function
 		
 		//test Skipping Iterator:
-
+		
 		testSkippingIterator(list,2);
 		testSkippingIterator(list,4);
 		testSkippingIterator(list,11);
