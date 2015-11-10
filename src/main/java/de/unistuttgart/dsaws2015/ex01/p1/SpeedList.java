@@ -77,16 +77,20 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 	}
 
 	private Node head;
+	private int size;
 	
 	// default constructor
 	public SpeedList() {
 		head = new Node();
+		size = 0; // 0 elements in list
 	}
 
 
 	@Override
 	public int size() {
-		int counter = 0; // remark: the head will not be considered as part of the list
+		// remark: the head will not be considered as part of the list
+
+
 		//TODO: discuss this with team.
 		//QUOTE Mark: yeah i think you are right. The head can be null,
 		//therefore the list can be empty (0 elements) even if the head is
@@ -96,23 +100,22 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		// should consider saving the size as private variable and then we 
 		// just raise or lower the size if a elemt gets added or deleted. 
 		// the size() method would then be as simple as : "return size;"
-		Node l = this.head;
 		
+		// Remark Daniel: very good point.
+		// I implemented it accordingly. 
+		// Delete all the comments if so ok.
+
 		//TODO: This could be optimized using the next8th element.
-		while(l.getNext()!=null)
-		{
-			l = l.getNext(); //iterate through list
-			counter++;
-		}
-		return counter;
-		}
+		return this.size;
+	}
 
 	@Override
 	public void prepend(T item) {
 		// insert new node after head
 		Node n = new Node(item);
 		n.setNext(this.head.getNext()); 
-		this.head.setNext(n);
+		this.head.setNext(n); // head points now to new element
+		this.size++;
 		
 		//check if list is larger then 8 elements
 		if (this.size() > 8)
