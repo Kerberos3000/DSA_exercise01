@@ -1,9 +1,11 @@
 package de.unistuttgart.dsaws2015.ex01.p1;
 
+import java.util.Iterator;
+
 //import java.util.Iterator;
 
 //public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
-public class SpeedList<T> implements ISpeedList<T> {
+public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 
 
 	private class Node {
@@ -86,7 +88,12 @@ public class SpeedList<T> implements ISpeedList<T> {
 	public int size() {
 		int counter = 0; // remark: the head will not be considered as part of the list
 		//TODO: discuss this with team.
+		//QUOTE Mark: yeah i think you are right. The head can be null,
+		//therefore the list can be empty (0 elements) even if the head is
+		//initialized.
 		Node l = this.head;
+		
+		//TODO: This could be optimized using the next8th element.
 		while(l.getNext()!=null)
 		{
 			l = l.getNext(); //iterate through list
@@ -119,6 +126,10 @@ public class SpeedList<T> implements ISpeedList<T> {
 
 	@Override
 	public T getElementAt(int pos) {
+		
+		//TODO: this has to be expanded as well
+		//I think the whole point of the next8th list is to 
+		//speed up the traversing....
 		Node l = this.head;
 		for(int i=0; i<pos; i++)
 		{
@@ -128,7 +139,6 @@ public class SpeedList<T> implements ISpeedList<T> {
 			}
 			l = l.getNext();
 		}
-		
 		return l.getObj();
 	}
 
@@ -153,7 +163,8 @@ public class SpeedList<T> implements ISpeedList<T> {
 		}
 		
 	}
-
+	
+	
 	// not required
 	/**
 	 * This functions prints the whole content of the list on the console
@@ -171,6 +182,20 @@ public class SpeedList<T> implements ISpeedList<T> {
 		// print last element
 		System.out.println(counter + ": " + (String) l.getObj());	
 		
+	}
+
+
+	@Override
+	public Iterator<T> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Iterator<T> skippingIterator(int n) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

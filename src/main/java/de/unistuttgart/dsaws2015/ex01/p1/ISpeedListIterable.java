@@ -24,5 +24,5 @@ public interface ISpeedListIterable<T> {
 	*/
 	
 	
-	//public Iterator<T> skippingIterator(int n);
+	public Iterator<T> skippingIterator(int n);
 }
