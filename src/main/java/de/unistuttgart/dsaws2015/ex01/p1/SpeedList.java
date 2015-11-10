@@ -136,16 +136,36 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		//I think the whole point of the next8th list is to 
 		//speed up the traversing.... Okay i already did it, please
 		// check if it makes sense. The TestCases still work.
-		
+		//
+		//Daniel: Very good point!
+		//FIXME: head does not have a next8th pointer.
+		//This means your loop is never iterated.
+		//Solution a) we add a next8th pointer to the head, too. Not that trivial
+		//Solution b) we optimize from the first element. (and not from head)
+
 		Node l = this.head;
 		int i = 0;
-		while(l.getNext8th() != null && i<pos) //TODO: second check may be unnecessary ?
+
+		if (pos >= 1 && l.getNext() != null){
+			l = l.getNext();
+			i++;
+		}
+		else{
+			// list is empty or requested position is <1
+			throw new IndexOutOfBoundsException("position pos is out of bounds or your list is empty");
+		}
+	
+		//check if fast iterating possible
+		while(l.getNext8th() != null && (i+8)<pos) //TODO: second check may be unnecessary ?
+												// Daniel: I think it is necessary, but with i+8 (testcase will fail without it)
 		{
 			l = l.getNext8th();
 			i += 8;
 		}
 		
-		for(i=0; i<pos; i++)
+		//FIXME check why i=0? testcase?
+		//try with j=i
+		for(int j=i; j<pos; j++)
 		{
 			if (l.getNext() == null)
 			{
@@ -211,7 +231,6 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	@Override
 	public Iterator<T> skippingIterator(int n) {
