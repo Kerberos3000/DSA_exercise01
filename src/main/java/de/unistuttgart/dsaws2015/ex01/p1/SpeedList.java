@@ -148,12 +148,12 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		Node l = this.head;
 		int i = 0;
 
-		if (pos >= 1 && l.getNext() != null){
+		if (pos >= 0 && l.getNext() != null){
 			l = l.getNext();
-			i++;
+			// i++; TODO verify this change
 		}
 		else{
-			// list is empty or requested position is <1
+			// list is empty or requested position is <0
 			throw new IndexOutOfBoundsException("position pos is out of bounds or your list is empty");
 		}
 	
@@ -182,9 +182,8 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		int i = 0;
 
 		// preparation for fast iterating (head does not have a next8th pointer)
-		if (pos >= 1 && l.getNext() != null){
+		if (pos >= 0 && l.getNext() != null){
 			l = l.getNext();
-			i++;
 		}
 		else{
 			// list is empty or requested position is <1
@@ -227,7 +226,7 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 		// use print function to validate new iterator:
 		
 		SpeedListIterator iter = new SpeedListIterator();
-		int counter = 1; //0 = head	
+		int counter = 0; //0 = first element	
 		while (iter.hasNext())
 		{
 			System.out.println(counter + ": " + (String)iter.next()); 

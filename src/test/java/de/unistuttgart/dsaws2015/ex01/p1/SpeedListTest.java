@@ -47,19 +47,23 @@ public class SpeedListTest {
 		
 		//assertEquals("hallo",list.getElementAt(1000)); //throws exception
 		int size = list.size();
-		assertEquals("car",list.getElementAt(7));
-		assertEquals("hello",list.getElementAt(size));//TODO: discuss with team about the index
-		assertEquals("hello",list.getElementAt(18));
-		assertEquals("hi",list.getElementAt(17)); //check if optimized getElementAt is working as expected
-		assertEquals("bike",list.getElementAt(1));
+		assertEquals("book",list.getElementAt(7));
+		//assertEquals("hello",list.getElementAt(size)); // should through out of bounds exception
+		assertEquals("hello",list.getElementAt(size-1));//TODO: discuss with team about the index
+		assertEquals("hello",list.getElementAt(17));
+		assertEquals("hi",list.getElementAt(16)); //check if optimized getElementAt is working as expected
+		assertEquals("bike",list.getElementAt(0));
+		assertEquals("ball",list.getElementAt(1));
+
 
 			
-		assertEquals("hugo",list.getNext8thElementOf(1));
-		assertEquals("hi",list.getNext8thElementOf(9)); 
-//		assertEquals("hi",list.getNext8thElementOf(19)); //should be an exception
-		assertEquals("hello",list.getNext8thElementOf(10)); //should be hello
+		assertEquals("hugo",list.getNext8thElementOf(0));
+		assertEquals("foo",list.getNext8thElementOf(1));
+		assertEquals("hi",list.getNext8thElementOf(8)); 
+//		assertEquals("hi",list.getNext8thElementOf(18)); //should be an exception
+		assertEquals("hello",list.getNext8thElementOf(9)); //should be hello
 //		assertEquals("hello",list.getNext8thElementOf(11)); //should be an exception
-		assertEquals("hello",list.getNext8thElementOf(size-8));
+		assertEquals("hello",list.getNext8thElementOf(size-9));
 
 		
 		//TestProb1b:
