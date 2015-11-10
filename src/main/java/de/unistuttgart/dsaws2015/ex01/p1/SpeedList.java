@@ -277,16 +277,43 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 	
 	private class SpeedListSkippingIterator implements Iterator<T> {
 
+		private Node node;
+		private int stepWidth;
+		
+		// constructor for iterator
+		SpeedListSkippingIterator(int n){
+			if (n<1){
+				throw new IllegalArgumentException("stepwidth n is less than 1");
+			}
+			
+			node = head.getNext();
+			stepWidth = n;
+		}
+		
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
+			return node != null; 
 		}
 
 		@Override
 		public T next() {
-			// TODO Auto-generated method stub
-			return null;
+
+			if (!this.hasNext()) {
+				throw new NoSuchElementException();
+			}
+			T object = node.getObj();
+		
+			for(int i=0; i<this.stepWidth; i++)
+			{
+				node = node.getNext();
+				if (node == null)
+				{
+					break;
+				}
+				//TODO: improvement possibility: if stepwidth > 8, use next8th attribute
+			}
+			
+			return object;
 		}
 
 		@Override
@@ -309,8 +336,7 @@ public class SpeedList<T> implements ISpeedList<T>, ISpeedListIterable<T> {
 
 	@Override
 	public Iterator<T> skippingIterator(int n) {
-		// TODO Auto-generated method stub
-		return null;
+		return new SpeedListSkippingIterator(n);
 	}
 	
 

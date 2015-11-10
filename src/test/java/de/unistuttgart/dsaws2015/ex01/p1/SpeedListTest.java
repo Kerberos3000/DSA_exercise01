@@ -1,10 +1,19 @@
 package de.unistuttgart.dsaws2015.ex01.p1;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Iterator;
 
 import org.junit.Test;
 
+//import de.unistuttgart.dsaws2015.ex01.p1.SpeedList.SpeedListIterator;
+
 public class SpeedListTest {
+	
+//TODO: Implement a more elegant SpeedListTest class
+	//not important and only nice to have
+	
 	
 	@Test
 	public void test() {
@@ -54,11 +63,35 @@ public class SpeedListTest {
 
 		
 		//TestProb1b:
+		System.out.println("Start Test 1b\n");
 		// iterator is tested in print function
-		// TODO: check exception in remove
 		
+		//test Skipping Iterator:
+
+		testSkippingIterator(list,2);
+		testSkippingIterator(list,4);
+		testSkippingIterator(list,11);
+		testSkippingIterator(list,500);
+		testSkippingIterator(list,1);
+//		testSkippingIterator(list,0); // should be an exception
+
 
 		assertTrue(true);
+	}
+	
+	public void testSkippingIterator (SpeedList<String> list, int testwidth) {
+		// test Skipping Iterator
+		Iterator<String> testSkippingIter = list.skippingIterator(testwidth);
+		
+		//testSkippingIter.remove(); //should throw an exception
+
+		System.out.println("Skipping Test with stepwidth: " + testwidth );
+		int counter = 1; //0 = head	
+		while (testSkippingIter.hasNext())
+		{
+			System.out.println(counter + ": " + (String)testSkippingIter.next()); 
+			counter++;
+		}		
 	}
 
 }
